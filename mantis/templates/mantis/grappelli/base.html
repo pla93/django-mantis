@@ -42,37 +42,38 @@ Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
   {% endif %}
 
 </div>
-
   
-
+{% if menus.mantis_main %}
+{% with menu=menus.mantis_main %}
 <ul id="grp-user-tools">
-    {% if menus.mantis_main %}
-	{% with menu=menus.mantis_main %}
-            {% for item in menu %}
-		  {% if item.children %}
-		      <li class="grp-user-options-container grp-collapse grp-closed">
-			<a class="user-options-handler grp-collapse-handler" href="javascript://">{{ item.title }}</a>
-			<ul class="grp-user-options">
-			  {% for child in item.children %}
-			      {% if child.visible %} 
-			        <li><a href="{{ child.url }}">{{ child.title }}</a></li>
-			      {% endif %}
+  {% for level1 in menu %}
+    {% if level1.children %}
+      <li class="grp-user-options-container grp-collapse grp-closed">
+			  <a class="user-options-handler grp-collapse-handler" href="#">{{ level1.title }}</a>
+			  <ul class="grp-user-options">
+			  {% for level2 in level1.children %}
+          {% if level2.children %}
+            <li class="grp-user-options-container grp-collapse grp-closed nav-li-level2">
+              <a class="user-options-handler grp-collapse-handler" href="#">{{ level2.title }}</a>
+              <ul class="grp-user-options nav-ul-level3">
+              {% for level3 in level2.children %}
+			          <li><a href="{{ level3.url }}">{{ level3.title }}</a></li>
+              {% endfor %}
+              </ul>
+            </li>
+          {% else %}
+           <li class="grp-user-options-container"><a href="{{ level2.url }}">{{ level2.title }}</a></li>
+          {% endif %}
 			  {% endfor %}
-			</ul>
-		      </li>
-		  {% else %}
-		      <li class="grp-user-options-container">
-			<a href="{{ item.url }}">{{ item.title }}</a>
-		      </li>
-		  {% endif %}
-	    {% endfor %}
-	{% endwith %}
+			  </ul>
+      </li>
+    {% else %}
+      <li class="grp-user-options-container"><a href="{{ level1.url }}">{{ level1.title }}</a></li>
     {% endif %}
-  </ul>
-
-
-
-
+  {% endfor %}
+</ul>
+{% endwith %}
+{% endif %}
 {% endblock %}
 
 
