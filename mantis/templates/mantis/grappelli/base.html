@@ -45,33 +45,35 @@ Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
   
 {% if menus.mantis_main %}
 {% with menu=menus.mantis_main %}
-<ul id="grp-user-tools">
+<nav id="mantis_top_menu">
+  <ul>
   {% for level1 in menu %}
     {% if level1.children %}
-      <li class="grp-user-options-container grp-collapse grp-closed">
-			  <a class="user-options-handler grp-collapse-handler" href="#">{{ level1.title }}</a>
-			  <ul class="grp-user-options">
+      <li>
+			  <a href="#">{{ level1.title }}</a>
+			  <ul>
 			  {% for level2 in level1.children %}
           {% if level2.children %}
-            <li class="grp-user-options-container grp-collapse grp-closed nav-li-level2">
-              <a class="user-options-handler grp-collapse-handler" href="#">{{ level2.title }}</a>
-              <ul class="grp-user-options nav-ul-level3">
+            <li>
+              <a class="submenu" href="#">{{ level2.title }}</a>
+              <ul>
               {% for level3 in level2.children %}
 			          <li><a href="{{ level3.url }}">{{ level3.title }}</a></li>
               {% endfor %}
               </ul>
             </li>
           {% else %}
-           <li class="grp-user-options-container"><a href="{{ level2.url }}">{{ level2.title }}</a></li>
+           <li><a href="{{ level2.url }}">{{ level2.title }}</a></li>
           {% endif %}
 			  {% endfor %}
 			  </ul>
       </li>
     {% else %}
-      <li class="grp-user-options-container"><a href="{{ level1.url }}">{{ level1.title }}</a></li>
+      <li><a href="{{ level1.url }}">{{ level1.title }}</a></li>
     {% endif %}
   {% endfor %}
-</ul>
+  </ul>
+</nav>
 {% endwith %}
 {% endif %}
 {% endblock %}
